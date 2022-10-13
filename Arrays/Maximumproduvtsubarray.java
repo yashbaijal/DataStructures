@@ -21,6 +21,24 @@ class Codechef
         }
         return result;
     }
+	// New Approach
+	long maxProduct(int[] arr, int n) {
+        long result=arr[0],max=result,min=result;
+        
+        for(int i=1;i<n;i++)
+        {
+            if(arr[i]<0)
+            {
+                long temp=max;
+                max=min;
+                min=temp;
+            }
+            max=Math.max(arr[i],max*arr[i]);
+            min=Math.min(arr[i],min*arr[i]);
+            result=Math.max(result,max);
+        }
+        return result;
+    }
 	public static void main (String[] args) throws java.lang.Exception
 	{
 		int [] arr={1,-2,-3,0,7,-8,-2};
