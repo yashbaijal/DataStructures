@@ -1,0 +1,23 @@
+
+2nd Max salary:
+select max(salary) as secondHighestSalary from  employee where salary < (select max(salary) from  employee);
+
+=======================================
+Nth Maximum salary :
+
+1. Approach 1:
+
+select distinct salary from employee order by salary desc limit 1 offset 1 ;
+
+select IFNULL((select distinct salary from employee order by salary desc limit 1 offset 1),NULL) as secondHighestSalary;
+
+above query handle those cases where all salary are equal and we get null as secondhighest salary--> hence
+IFNULL is used.
+Distinct is used to eliminate duplicate values.
+-> offset values can be set as per need like 1 for second highest, 2 for third highest.
+
+2. Approach 2:
+
+select salary as secondHighestSalary from (select salary , dense_rank() over (order by salary desc ) as result from employee ) temp where temp.result=2;
+
+=========================================
