@@ -38,3 +38,35 @@ class Codechef
 		System.out.println(longestUniqueSubString(str));
 	}
 }
+================================================================
+	
+	public static void longestUniqueSubString(String str)
+    {
+        int res=0;
+        int start=0,end=0;
+        
+        boolean [] visited=new boolean[256];
+        
+        for(int i=0;i<str.length();i++)
+        {
+            for(int j=i;j<str.length();j++)
+            {
+                if(visited[str.charAt(j)]==true)
+                {
+                    break;
+                }
+                else{
+                    if((j-i+1)>res)
+                    {
+                        start=i;
+                        end=j;
+                    }
+                    res=Math.max(res,j-i+1);
+                    visited[str.charAt(j)]=true;
+                }
+            }
+            visited[str.charAt(i)]=false;
+        }
+        System.out.println(res);
+        System.out.println("longestUniqueSubString : "+str.substring(start,end+1));
+    }
