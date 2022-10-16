@@ -30,3 +30,14 @@ select C.custID, C.first_name,C.last_name,count(*) as totalOrders
 from Orders as O JOIN / INNER JOIN  ON Customers as C on O.custID=C.custID
 group by C.custID,C.first_name,C.last_name 
 having count(*)>1;
+
+-> Above query using derived table but , previous one was efficient with less code
+select custID ,first_name,last_name, totalOrders from (
+
+select C.custID, C.first_name,C.last_name,count(*) as totalOrders
+from Orders as O JOIN / INNER JOIN  ON Customers as C on O.custID=C.custID
+group by C.custID,C.first_name,C.last_name
+
+) as temptable where totalOrders >1;
+
+=========================================
