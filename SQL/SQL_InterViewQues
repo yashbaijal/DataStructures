@@ -27,7 +27,7 @@ interview: select distinct salary from (select salary ,dense_rank() over (order 
 Query To to find out customers who have bought from a store more than once (Repeat customer)
 
 select C.custID, C.first_name,C.last_name,count(*) as totalOrders
-from Orders as O JOIN / INNER JOIN  ON Customers as C on O.custID=C.custID
+from Orders as O JOIN / INNER JOIN Customers as C on O.custID=C.custID
 group by C.custID,C.first_name,C.last_name 
 having count(*)>1;
 
@@ -35,9 +35,35 @@ having count(*)>1;
 select custID ,first_name,last_name, totalOrders from (
 
 select C.custID, C.first_name,C.last_name,count(*) as totalOrders
-from Orders as O JOIN / INNER JOIN  ON Customers as C on O.custID=C.custID
+from Orders as O JOIN / INNER JOIN  Customers as C on O.custID=C.custID
 group by C.custID,C.first_name,C.last_name
 
 ) as temptable where totalOrders >1;
 
-=========================================
+================================================
+
+Employees Earning more than their managers:
+
+Input: 
+Employee table:
++----+-------+--------+-----------+
+| id | name  | salary | managerId |
++----+-------+--------+-----------+
+| 1  | Joe   | 70000  | 3         |
+| 2  | Henry | 80000  | 4         |
+| 3  | Sam   | 60000  | Null      |
+| 4  | Max   | 90000  | Null      |
++----+-------+--------+-----------+
+Output: 
++----------+
+| Employee |
++----------+
+| Joe      |
++----------+
+Explanation: Joe is the only employee who earns more than his manager.
+
+SOLUTION : ==>> select e1.name as employee from employee e1 JOIN 
+employee e2 on e1.managerId=e2.id and 
+e1.salary > e2.salary;
+
+================================================
