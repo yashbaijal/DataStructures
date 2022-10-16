@@ -20,4 +20,13 @@ Distinct is used to eliminate duplicate values.
 
 select salary as secondHighestSalary from (select salary , dense_rank() over (order by salary desc ) as result from employee ) temp where temp.result=2;
 
+interview: select distinct salary from (select salary ,dense_rank() over (order by salary desc) as denserank from employee ) temp where temp.denserank=2;
+--> here temp is derived table from set of results.
+
 =========================================
+Query To to find out customers who have bought from a store more than once (Repeat customer)
+
+select C.custID, C.first_name,C.last_name,count(*) as totalOrders
+from Orders as O JOIN / INNER JOIN  ON Customers as C on O.custID=C.custID
+group by C.custID,C.first_name,C.last_name 
+having count(*)>1;
