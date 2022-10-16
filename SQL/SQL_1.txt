@@ -22,7 +22,7 @@ Output:
 | 1               |
 +-----------------+
 
-select distinct li.num as COnsicutiveNums from logs l1 join logs l2 on li.id=l2.id+1 and l1.num=l2.num
+select distinct l1.num as COnsicutiveNums from logs l1 join logs l2 on li.id=l2.id+1 and l1.num=l2.num
 join logs ls l1.id=l3.id+2 and l1.num=l3.num.
 
 ================================================
