@@ -25,3 +25,33 @@ employee.departmentId=department.id where (departmentId ,salary) in
 (select departmentId, max(salary) form employee group by departmentId);
 
 ==================================================
+
+Remove Duplicates from Table;
+
+Note:Duplicate record is identified based on the model and brand name.
+
+-->> SOLUTION 1: Delete using Unique identifier
+delete from cars
+where id in ( select max(id)
+              from cars
+              group by model, brand
+              having count(1) > 1);
+
+
+-->> SOLUTION 2: Using SELF join
+delete from cars
+where id in ( select c2.id
+              from cars c1
+              join cars c2 on c1.model = c2.model and c1.brand = c2.brand
+              where c1.id < c2.id);
+
+
+-->> SOLUTION 3: Using Window function
+delete from cars
+where id in ( select id
+              from (select *
+                   , row_number() over(partition by model, brand order by id) as rn
+                   from cars) x
+              where x.rn > 1);
+              
+=======================================================              
