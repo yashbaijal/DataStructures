@@ -1,0 +1,97 @@
+
+Data provider as MySql dtabase:
+
+
+@DataProvider(name="bookingData")
+public static Object [][] getTestdata() 
+{
+	String query="select * from testTable where description=\"test\";";
+	Map<Integer,Map<Object,Object>> dbData=new HashMap();
+
+	try 
+	{
+	  Class.forName("com.mysql.jdbc.Driver");
+	  try
+	  {
+	     Connection conn= DriverManager.getConnection(dbUrl,username,password);
+	     Statement statement=conn.createStatement();
+	     ResultSet resultSet=statement.executrQuery(query);
+
+	     while(resultSet.next())
+	     {
+	        Map<Object,Object> map=new HashMap();
+	        ResultSetMetaData resultSetMetaData=resultSet.getMetaData();
+
+	        int row=resultSet.getRow();
+	        int col=resultSetMetaData.geyColumnCount();
+	        for(int i=1;i<=col:i++)
+	        {
+	          map.put(resultSetMetaData.getColumnName(i),resultSet.getString(resultSetMetaData.getColumnName(i)));
+	        }
+
+	        dbData.put(row,map);
+	     }
+	  }catch (SQLException ex) {
+				ex.printStackTrace();
+				System.out.println("Failed to create the database connection."); 
+			}
+	}catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+			System.out.println("Driver not found."); 
+		}
+
+    Object [][] arr= new Object[dbData.size()][1];
+
+    for(int i=1;i<dbData.size();i++)
+    {
+      arr[i-1][0]=dbData.get(i);
+    }
+
+    return arr;
+
+}
+===================================
+DataProvider as xlxs File:
+
+public static Object [][] getTestdata()
+{
+ public static HSSFWorkbook workbook;
+ public static HSSFSheet worksheet;
+
+ static File file= new File System.getProperty("user.dir").concat("/src/main/resources").concat("testData.xlxs");
+
+ FileInputStream fis=new FileInputStream(file);
+
+ workbook = new HSSFWorkbook (fileInputStream);
+ worksheet=workbook.getSheet(SheetName);
+       HSSFRow Row=worksheet.getRow(0);       
+       
+    	int RowNum = worksheet.getPhysicalNumberOfRows();
+    	int ColNum= Row.getLastCellNum();
+    	
+    	Object Data[][]= new Object[RowNum-1][ColNum];
+    	
+     for(int i=0; i<RowNum-1; i++)
+     {  
+     HSSFRow row= worksheet.getRow(i+1);
+     
+     for (int j=0; j<ColNum; j++)
+     {
+    if (row == null)
+        Data[i][j] = "";
+    else {
+        HSSFCell cell = row.getCell(j);
+        if (cell == null)
+            Data[i][j] = "";
+        else {
+            String value = formatter.formatCellValue(cell);
+            Data[i][j] = value;
+        }
+    }
+}
+     }
+ 
+    	return Data;
+    }
+
+
