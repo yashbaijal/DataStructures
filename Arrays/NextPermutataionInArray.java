@@ -44,5 +44,25 @@ class Codechef
 		 {
 		     System.out.print(arr[i]+" ");
 		 }
+		
+		// if questions asked next greater number with same set of digits use below code 
+		/*{
+		int num=543976;
+		int len=Integer.toString(num).length();
+		
+		int [] arr =new int[len];
+		
+		int res=0,rem=0;
+		
+		for(int i=arr.length-1;i>=0;i--)
+		{
+		    res=num%10;
+		    num=num/10;
+		    arr[i]=res;
+		}
+		nextPermutation(arr);
+		*/
+		
+	}
 	}
 }
