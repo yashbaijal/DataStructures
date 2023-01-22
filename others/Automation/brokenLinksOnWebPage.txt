@@ -1,0 +1,39 @@
+public class BrokenLinksTest {
+
+    public static void main(String[] args) throws IOException {
+
+        String homePage = "http://www.zlti.com";
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver=new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get(homePage);
+        List<WebElement> links= driver.findElements(By.tagName("a"));
+        for(int i=0;i<links.size();i++)
+        {
+           String url=links.get(i).getAttribute("href");
+           if(!url.contains("https"))
+           {
+               System.out.println("invalid url : "+url);
+               continue;
+           }
+           System.out.println(url);
+           verifyLink(url);
+        }
+        driver.quit();
+    }
+    public static void verifyLink(String urlToTest) throws IOException {
+        URL url=new URL(urlToTest);
+        HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
+        httpURLConnection.connect();
+        try
+        {
+            if(httpURLConnection.getResponseCode()>=400)
+            {
+                System.out.println(url+" is a broken link");
+            }
+        }
+        catch(MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+}
