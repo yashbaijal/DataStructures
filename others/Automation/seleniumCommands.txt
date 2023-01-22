@@ -1,0 +1,117 @@
+WebLocators:
+1. By ID            By.id
+2. By Name          By.name
+3. By TagName       By.tagName
+4. By ClassName     By.className
+5. By xpath         By.xpath
+6. By cssSelector   By.cssSelector
+7. By linkText      By.linkTex
+8. By partial       By.partialLinkText
+
+
+WAITS:
+
+1. Implicit wait : we are asking webdriver to wait for specific period of time 
+   driver.manage().timeouts().implicitlyWait(TimeOut, TimeUnits.SECONDS);
+
+2. Explicit Wait: driver will wait for specific period of time for a condition before proceeding further
+   
+   WebDriverWait wait=new WebDriverWait(driver,Timeout);
+
+   wait.untill(ExpectedConditions.method(By.locator()));
+
+3. Fluent Wait : webdriver will wait for a condition as well as for frequecy before throwing NosucElementException
+
+   FluentWait<Webdriver> fluentWait=new  FluentWait<Webdriver>(driver reference).withTimeout(timeout,Seconds).
+   pollingEvery(timeout,Seconds).ignoring(Exception.class);
+
+   we can also use-Duration.ofSeconds(unit) for timeouts.
+
+Navigation:
+
+1. driver .navigate().to("URL");
+2. driver.navigate().refresh(); ----> refreshes the page
+3. driver .navigate().forward(); ---> move forward in browser
+4. driver .navigate().back();   ----> move back in browser
+
+ Closing:
+
+ 1. driver.close() -->This command closes the browser’s current window. If multiple windows are open, the current window of focus will be closed
+ 2. driver.quit()----> called on the driver instance and  if there are one or more browser windows open, it closes all the open browser windows.   
+
+Typing:
+1.sendKeys()
+2.JavaScriptExecutor jse=(JavaScriptExecutor)driver;
+  jse.executeScript(document.getElementById('value').value="");
+
+Clicking on Hyperlink :
+
+1.driver.findElement(By.linkText("")).click();  
+
+Title of webpage: driver.getTitle();
+
+MouseHover over element:
+
+Actions action=new Actions(driver);
+
+action.moveToElement(driver.findElement(By.locator(''))).perform();
+
+
+Taking screenshot:
+
+File file= ((TakeScreenshot)driver).getScreenshotAs(output.FILE);
+
+Selecting value from dropdown:
+
+using select class:
+
+steps:
+1. WebElement dropDownToTest= driver.findElement(By.locator(""));
+2. Select dropdown = new Select(dropDownToTest);
+   
+   There are three ways to select value from drop down:
+
+    driver.selectByIndex(id);
+    driver.selectByValue(value);
+    driver.selectByVisibleText("text");
+
+
+Handling Multiple Windows:
+String window=driver.getWindowHandle(); //single window
+
+// Multiple Windows
+1. Set<String> windows=driver.getWindowHandles();
+2. Iterator<String> iterator= windows.iterator();
+3. String parent= iterator.next();
+   String child= iterator.next();
+4.  driver.switchTo(child);
+5.  driver.switchTo(parent);
+
+
+Collecting all links from a webpage:
+
+List<WebElement> links=driver.findElements(By.tagName("a"));
+
+for(WebElement e:links)
+{
+	String url=e.getAttribute("href");
+	System.out.println(url);
+}
+
+
+Drag and Drop in Webdriver:
+
+Actions action=new Actions(driver);
+
+1.   WebElement draggable = driver.findElement(By.id("draggable"));
+
+     WebElement droppable = driver.findElement(By.id("droppable"));
+
+     actions.dragAndDrop(draggable, droppable).perform();
+ 
+2.   actions.clickAndHold(draggable).release(droppable).perform();
+
+3.  actions.moveToElement(draggable).clickAndHold().moveToElement(droppable).release().perform();
+
+-----------------------------------------------------------   
+
