@@ -1,0 +1,90 @@
+package jsonArrayJsonObjectOperations;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class SortJsonArray {
+
+    public static void main(String[] args) {
+
+        String input ="[\n" +
+                "{\n" +
+                "\t\"OS\": \"ios\",\n" +
+                "\t\"level\": 5,\n" +
+                "\t\"version\": 1.3\n" +
+                "},\n" +
+                "{\n" +
+                "\t\"OS\": \"android\",\n" +
+                "\t\"level\": 8,\n" +
+                "\t\"version\": 4.6\n" +
+                "},\n" +
+                " {\n" +
+                "\t\"OS\": \"windows\",\n" +
+                "\t\"level\": 5,\n" +
+                "\t\"version\": 4.3\n" +
+                "},\n" +
+                "  {\n" +
+                "\t\"OS\": \"ios\",\n" +
+                "\t\"level\": 8,\n" +
+                "\t\"version\": 4.5\n" +
+                "},\n" +
+                "{\n" +
+                "\t\"OS\": \"windows\",\n" +
+                "\t\"level\": 8,\n" +
+                "\t\"version\": 4.1\n" +
+                "},\n" +
+                "{\n" +
+                "\t\"OS\": \"android\",\n" +
+                "\t\"level\": 8,\n" +
+                "\t\"version\": 4.4\n" +
+                "}\n" +
+                "]";
+
+        String jj="{" +
+        "\t\"OS\": \"android\",\n" +
+                "\t\"level\": 8,\n" +
+                "\t\"version\": 4.4\n" +
+                "}";
+        JSONArray jsonArray=new JSONArray(input);
+        JSONArray sortedJsonArray =new JSONArray();
+
+        JSONObject obj=new JSONObject(jj);
+
+        List<JSONObject> jsonObjects =new ArrayList<>();
+
+        for(int i=0;i<jsonArray.length();i++)
+        {
+            jsonObjects.add(jsonArray.getJSONObject(i));
+        }
+
+        System.out.println("original JSON Array : "+jsonArray);
+
+        Collections.sort(jsonObjects, new Comparator<JSONObject>() {
+            private static final String KEY_NAME = "OS";
+            @Override
+            public int compare(JSONObject a, JSONObject b) {
+                String str1 = new String();
+                String str2 = new String();
+                try {
+                    str1 = (String)a.get(KEY_NAME);
+                    str2 = (String)b.get(KEY_NAME);
+                } catch(JSONException e) {
+                    e.printStackTrace();
+                }
+                return str2.compareTo(str1);
+            }
+        });
+        for(int i=0;i<jsonArray.length();i++)
+        {
+            sortedJsonArray.put(jsonObjects.get(i));
+        }
+
+        System.out.println("Sorted JSON Array : "+sortedJsonArray);
+    }
+}
