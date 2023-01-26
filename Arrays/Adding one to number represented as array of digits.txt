@@ -1,0 +1,45 @@
+/* package codechef; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+//Adding one to number represented as array of digits
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef
+{
+    public static void addOne(List<Integer> digits)
+    {
+        int index=digits.size()-1;
+        
+        while(index>=0 && digits.get(index)==9)
+        {
+            digits.set(index,0);
+            index--;
+        }
+        
+        if(index<0)
+        {
+            digits.set(0,1);
+            digits.add(index+1,0);
+        }
+        else{
+            digits.set(index,digits.get(index)+1);
+        }
+    }
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		int [] arr={0,0,1,0};
+		
+		List<Integer> digits=new ArrayList<>();
+		for(int i:arr)
+		{
+		    digits.add(i);
+		}
+		addOne(digits);
+		for(Integer i:digits)
+		{
+		    System.out.print(" "+i);
+		}
+	}
+}
