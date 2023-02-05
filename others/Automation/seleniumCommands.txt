@@ -115,3 +115,39 @@ Actions action=new Actions(driver);
 
 -----------------------------------------------------------   
 
+How Handle WebTables in Selenium :
+
+Steps :
+1. swithch to frame containng particular table
+2. Get number of rows of table
+3. Get number of columns of table
+4. Iterate over each row and column to fetch data.
+
+        WebDriverManager.chromedriver().setup();
+        ChromeDriver driver=new ChromeDriver();
+        driver.get("https://www.asx.com.au/");
+
+        WebElement frame1=driver.findElement(By.xpath("path"));
+        driver.switchTo().frame(frame1);
+
+        //number of rows
+        List<WebElement> rowElements=driver.findElements(By.xpath("path"));
+        int rowNum=rowElements.size();
+
+        //number of columns
+        List<WebElement> colElements=driver.findElements(By.xpath("path"));
+        int colNum=colElements.size();
+
+        // fetching all data row and column wise
+        for(int i=1;i<=rowNum;i++)
+        {
+            for(int j=1;j<=colNum;j++)
+            {
+               System.out.print(driver.findElement(By.xpath("path/tr["+i+"]/td["+j+"]")).getText());
+            }
+            System.out.println();
+        }
+	
+	
+--------------------------------------------------------	
+	
