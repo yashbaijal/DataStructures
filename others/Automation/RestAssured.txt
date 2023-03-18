@@ -1,0 +1,19 @@
+How to  extaract Headers from Response:
+
+Headers allHeaders=response.getHeaders();
+for(Header head:allHeaders)
+{
+  System.out.println(head.getName()+"--------"+head.getValue());
+} 
+
+ if header is multivalued:
+ List<Header> allValue= response.getHeaders().getList("header_name");
+ for(Header head:allHeaders)
+{
+  System.out.println(head.getName()+"--------"+head.getValue());
+}
+
+if only values of header are required:
+List<String> allValue= response.getHeaders().getValues("header_name");
+
+---------------------------------------------------------
