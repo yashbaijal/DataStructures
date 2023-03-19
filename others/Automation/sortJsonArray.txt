@@ -46,15 +46,9 @@ public class SortJsonArray {
                 "}\n" +
                 "]";
 
-        String jj="{" +
-        "\t\"OS\": \"android\",\n" +
-                "\t\"level\": 8,\n" +
-                "\t\"version\": 4.4\n" +
-                "}";
+       
         JSONArray jsonArray=new JSONArray(input);
         JSONArray sortedJsonArray =new JSONArray();
-
-        JSONObject obj=new JSONObject(jj);
 
         List<JSONObject> jsonObjects =new ArrayList<>();
 
