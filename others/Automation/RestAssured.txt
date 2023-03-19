@@ -42,4 +42,77 @@ Sending Cookies in Request :
 Response response=RestAssured.given().contentType(ContentType.JSON).cookie("key",value).body().post();
 --------------------------------------------------------------
 
+POJO -: Plain Old Java Objects
+A java class that don't extend or implemet properties from any other framework related classes, use to represent data or structure of Payload of request or Node in request . Mainly consists of default constructors , private members and prublic getters and setters method.
+
+----------------------------------------------------
+Convert A Portion Of Nested JSON Object Response To POJO To Extract Value From Response:
+
+eg: we need to extract only Address  obj from entire response .
+
+Address address=RestAssured.given().body().when().post().jsonPath().getObject("address",Address.class);
+-----------------------------------------------------
+
+Three ways to parse Response of Request in RestAssured:
+
+1. TypeReference: bases on response structure we convert response into suitable data structure.
+ 
+Converting To Map:
+
+Map<String,Object> responseToMap=RestAssured.get("https://restful-booker.herokuapp.com/booking/1345").as(new TypeRef<Map<String,Object>>(){});
+responseToMap.keySet().forEach(k->System.out.println(k+"---"+responseToMap.get(k)));
+
+Converting to List:
+
+List<Map<String,Object>> responsetoList=RestAssured.get("https://run.mocky.io/v3/7db4566c-3f45-4ad9-a779-b48dbe5a7947").as(new TypeRef<List<Map<String,Object>>>(){});
+
+2. Json Path:
+
+JsonPath jp= response.jsonPath();
+          OR
+JsonPath jp= new JsonPath(response.asString()); 
+
+jp.get("path");
+
+List<String> first_name=jp.getList("first_name"); // when path returns more than one results
+System.out.println(first_name);
+
+Filters in JsonPath : used to fetch specific set of data from response 
+
+        List<String> femaleFirstNames=jp.getList("findAll{it.gender=='Female'}.first_name");
+        System.out.println(femaleFirstNames);
+
+        List<String> emailOfSE=jp.getList("findAll{it.gender=='Female' & it.profession=='SoftwareEngineer'}.email");
+        System.out.println(emailOfSE);
+
+        List<String> emailOR=jp.getList("findAll{it.location=='Remote' | it.profession=='HR'}.email");
+        System.out.println(emailOR);
+
+3. POJO : first response is serialized to desired class then using getter methods we can assert or parse responses.
+
+-----------------------------------------------------------------------
+
+Serialization : Converting response to POJO class 
+
+      ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+					false);
+		Object	objFromJson = mapper.readValue(response.asString(), classType);
+ 
+De-serialization: converting object to JSON
+
+ ObjectMapper mapper = new ObjectMapper();
+ String jsonData =  mapper.writeValueAsString(obj);
+ 
+ ---------------------------------------------------------------------
+ 
+ How to Bypass SSL in RestAssured:
+ 
+ RestAssured.useRelaxedHTTPSValidation();
+ 
+ public static void useRelaxedHTTPSValidation(String protocol) {
+        config = config().sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation(protocol));
+    }
+    
+    -----------------------------------------------------------------
 
