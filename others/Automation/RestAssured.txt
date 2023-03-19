@@ -17,3 +17,29 @@ if only values of header are required:
 List<String> allValue= response.getHeaders().getValues("header_name");
 
 ---------------------------------------------------------
+How to fetch cookies :
+response.getCookie("cookie_name"); --- only provides name of cookie
+reponse.getDetailedCookie("cookie_name");--------- cookie key as well as value
+
+
+fetching multiple cookies values:
+Map<String,String> cookie=response.getCookies();
+for(Map.Entry<String,String> entry:cookie.entrySet())
+{
+  System.out.println(entry.getKey()+"------"+entry.getValue());
+}
+
+if need to get cookies attributes as well as value:
+
+Cookies cookie=response.getDetailedCookies();
+List<Cookie> cookieList= cookie.asList();
+
+for(Cookie cookie:cookieList){
+System.out.println(cookie.asString()); }
+
+Sending Cookies in Request :
+
+Response response=RestAssured.given().contentType(ContentType.JSON).cookie("key",value).body().post();
+--------------------------------------------------------------
+
+
