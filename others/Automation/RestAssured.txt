@@ -23,11 +23,16 @@ reponse.getDetailedCookie("cookie_name");--------- cookie key as well as value
 
 
 fetching multiple cookies values:
+
 Map<String,String> cookie=response.getCookies();
 for(Map.Entry<String,String> entry:cookie.entrySet())
 {
   System.out.println(entry.getKey()+"------"+entry.getValue());
 }
+
+---> Map<String, String> allCookies = get("https://www.stackoverflow.com").getCookies();
+
+List<String> myCookieValues = allCookies.getValues("myCookieName");
 
 if need to get cookies attributes as well as value:
 
@@ -36,6 +41,18 @@ List<Cookie> cookieList= cookie.asList();
 
 for(Cookie cookie:cookieList){
 System.out.println(cookie.asString()); }
+
+Cookies allDetailedCookies = get("https://www.stackoverflow.com").getDetailedCookies();
+
+Cookie myCookie = allDetailedCookies.get("myCookieName");
+myCookie.getValue();
+myCookie.getDomain();
+myCookie.getExpiryDate();
+myCookie.getMaxAge();
+
+---->If multi valued cookie :
+
+List<Cookie> myCookies = allDetailedCookies.getList("myCookieNAme");
 
 Sending Cookies in Request :
 
