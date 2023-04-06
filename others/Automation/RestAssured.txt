@@ -111,15 +111,35 @@ Filters in JsonPath : used to fetch specific set of data from response
 
 Serialization : Converting response to POJO class 
 
-      ObjectMapper mapper = new ObjectMapper();
-			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
-					false);
-		Object	objFromJson = mapper.readValue(response.asString(), classType);
+      public static Object convertFromJson(String jsonData, Class<?> classType) {
+        Object objFromJson = null;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+                    false);
+            objFromJson = mapper.readValue(jsonData, classType);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            e.printStackTrace();
+        }
+
+        return objFromJson;
+    }
  
 De-serialization: converting object to JSON
 
- ObjectMapper mapper = new ObjectMapper();
- String jsonData =  mapper.writeValueAsString(obj);
+ public static String convertToJson(Object obj) {
+        String jsonData = null;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            jsonData =  mapper.writeValueAsString(obj);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return jsonData;
+    }
  
  ---------------------------------------------------------------------
  
