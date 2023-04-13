@@ -151,3 +151,4 @@ Steps :
 	
 --------------------------------------------------------	
 	
+driver.switchTo().defaultContent() -- switches to either main frame of page or main document when a page contains iFrame.	
