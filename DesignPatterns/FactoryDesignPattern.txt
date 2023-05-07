@@ -1,0 +1,7 @@
+1. We create an Interface ( either Java Interface or Abstract class to create object) , and let subclasses implementing above factory 
+to decide which type of object ,we need to instantiate .
+In Java, constructors are not polymorphic, but by allowing subclass to create an object, we are adding polymorphic behavior to the instantiation.
+In short, we are trying to achieve Pseudo polymorphism by letting the subclass to decide what to create, 
+and so this Factory method is also called a virtual constructor. 
+
+https://github.com/TechPrimers/creational-design-patterns-example/tree/master/src/main/java/com/techprimers/designpatterns/factory
