@@ -5,3 +5,8 @@ In short, we are trying to achieve Pseudo polymorphism by letting the subclass t
 and so this Factory method is also called a virtual constructor. 
 
 https://github.com/TechPrimers/creational-design-patterns-example/tree/master/src/main/java/com/techprimers/designpatterns/factory
+
+Feature:
+1. object creation logic is hidden from client.
+2. subclasses creates object.
+3. Single factory method to create object of concrete subclasses.
