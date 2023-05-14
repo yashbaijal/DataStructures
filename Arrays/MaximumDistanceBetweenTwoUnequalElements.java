@@ -1,5 +1,5 @@
 /*
-e pair of unequal elements must include either first or last element or both, calculate the longest distance between unequal element 
+pair of unequal elements must include either first or last element or both, calculate the longest distance between unequal element 
 by traversing the array either by fixing the first element or fixing the last element.
 */
 
@@ -47,3 +47,31 @@ public class Assignment
 
 TC=o(n) SC=O(1)
 ==========================================================
+   
+   public class Assignment
+{
+   public static void maxdiff(int [] arr)
+{
+    int n=arr.length;
+    int maxD=-1;
+
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            
+                int temp=j-i;
+                maxD=maxD> temp? maxD:temp;
+        }
+    }
+    System.out.println("max distance is : "+maxD);
+}
+
+    public static void main(String[] args) {
+
+        int[] arr = { 1, 2, 4, 1, 3, 4, 2, 5, 6, 5 };
+        maxdiff(arr);
+    }
+}
+
+TC=O(n^2) , SC=O(1)
