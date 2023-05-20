@@ -61,6 +61,17 @@ Taking screenshot:
 
 File file= ((TakeScreenshot)driver).getScreenshotAs(output.FILE);
 
+public static void takeSnapShot(WebDriver webdriver,String fileWithPath) throws Exception{
+//Convert web driver object to TakeScreenshot
+TakesScreenshot scrShot =((TakesScreenshot)webdriver);
+//Call getScreenshotAs method to create image file
+File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+//Move image file to new destination
+File DestFile=new File(fileWithPath);  ----> fileWithPath :it is path where we want to save screenshot of our file.
+//Copy file at destination
+FileUtils.copyFile(SrcFile, DestFile);
+}
+
 Selecting value from dropdown:
 
 using select class:
