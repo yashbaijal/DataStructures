@@ -1,1 +1,20 @@
 
+INTERVAL in SQL:
+
+interval is an operator, which is based on the binary search algorithm to search the items and returns the value from 0 to N. It is mainly used to calculate the date and time values.
+
+syntax:
+mysql> SELECT inserted_on + INTERVAL 5 DAY AS DATE;  
+
+examples:
+DAY	DAYS	
+DAY_HOUR	'DAYS HOURS'	
+DAY_MICROSECOND	'DAYS HOURS:MINUTES:SECONDS.MICROSECONDS'	
+DAY_MINUTE	'DAYS HOURS:MINUTES'	
+DAY_SECOND	'DAYS HOURS:MINUTES:SECCONDS'	
+HOUR	HOURS	
+HOUR_MICROSECOND	'HOURS:MINUTES:SECONDS.MICROSECONDS'	
+HOUR_SECOND	'HOURS:MINUTES:SECONDS'	
+HOUR_MINUTE	'HOURS:MINUTES'	
+MICROSECOND	MICROSECONDS 
+etc
