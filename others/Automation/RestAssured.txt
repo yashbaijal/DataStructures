@@ -152,4 +152,55 @@ De-serialization: converting object to JSON
     }
     
     -----------------------------------------------------------------
+RequestSpecification requestSpecification=null;
+
+    @BeforeClass
+    public void getSpec()
+    {
+        RequestSpecBuilder requestSpecBuilder=new RequestSpecBuilder();
+        requestSpecBuilder.setBaseUri("https://dummy.restapiexample.com/")
+                .setBasePath("/api/v1/employees");
+        requestSpecification=requestSpecBuilder.build();
+    }
+
+    @Test
+    public void getResponse()
+    {
+        Response response= RestAssured.given().spec(requestSpecification).when().get();
+        System.out.println(response.getStatusCode());
+        JsonPath jp=new JsonPath(response.asString());
+        List<String> firstNames= jp.getList("data.findAll{it.employee_age < 40}.employee_name");
+        for(String name:firstNames)
+        {
+            System.out.print(name+" ");
+        }
+    }
+
+    @Test
+    public void getPartialResponse()
+    {
+        RestAssured.useRelaxedHTTPSValidation();
+        Response response= RestAssured.given().when().get("https://randomuser.me/api");
+        List<Results> results= response.jsonPath().getList("results",Results.class);
+        Location location=response.jsonPath().getObject("results[0].location",Location.class);
+        System.out.println(location.getCity()+"--"+location.getCountry()+"--"+location.getPostcode());
+        Map<String,String> map=response.getCookies();
+        for(Map.Entry<String,String> entry:map.entrySet())
+        {
+            System.out.println("inside for");
+            System.out.println(entry.getKey()+"------"+entry.getValue());
+        }
+
+//        Headers allHeader=response.getHeaders();
+//        for(Header head:allHeader)
+//        {
+//            System.out.println(head.getName()+"--------"+head.getValue());
+//        }
+//        List<Header> listOfHeader=response.getHeaders().getList("Report-To");
+//        listOfHeader.forEach(header -> System.out.println(header.getValue()));
+//        System.out.println("value of header : "+response.getHeader("X-Powered-By"));
+
+
+
+    }
 
