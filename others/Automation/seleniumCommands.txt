@@ -163,3 +163,62 @@ Steps :
 --------------------------------------------------------	
 	
 driver.switchTo().defaultContent() -- switches to either main frame of page or main document when a page contains iFrame.	
+
+===========================================================
+
+Scenario: Suppose we want to open N number of windows by clicking on  links on parent window and how to hover to any
+window we want to , and how to validate we are on right window , after validating close all windows except parent one.
+
+Sample Code:
+
+{
+
+WebDriverManager.chromeDriver().setup();
+driver=new ChromeDriver();
+driver.get("url"); // Parent Window
+String parentWindowId=driver.getWindowHandle();
+driver.findElement(By.xpath("window1"));
+driver.findElement(By.xpath("window2"));
+driver.findElement(By.xpath("window3"));
+driver.findElement(By.xpath("window4"));
+driver.findElement(By.xpath("window5"));
+
+Set<String> handles=driver.getWindowHnadles();
+List<String> handleList=new ArrayList<>(handles);
+
+if(switchToRightWindow("Facebook",handleList))
+{
+	System.out.println(driver.getCurrentUrl()+" : "+driver.getTitle());
+}
+closeAllWindows(handleList,parentWindowId); // closing all other windows except parent window after validating the window we want.
+driver.switchTo.Window(parentWindowId); // switching back to parent window after finding window we want.
+System.out.println(driver.getCurrentUrl()+" : "+driver.getTitle());
+}
+
+public static boolean switchToRightWindow(String windowTitle,List<String> handleList)
+{
+	
+	for(String e:handleList)
+	{
+	  String title=driver.switchTo().window(e).getTitle();
+	  if(title.contains(windowTitle))
+	  {
+	    System.out.println("found correct window...");
+	    return true;
+	  }
+	}
+	return false;
+}
+
+public static void closeAllWindows(List<String> handleList,String parentWindowId)
+{
+	for(String e:handleList)
+	{
+	  if(!e.equals(parentWindowId))
+	  {
+	    driver.switchTo().window(e).close();
+	  }
+	}
+}
+
+============================================================
