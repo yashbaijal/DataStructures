@@ -1,1 +1,31 @@
 
+ITestContext Listner:
+Is used to pick parameter value from testNg.xml file and based on that we can drive our testing environmet URL.
+eg)
+public void classInit(ITestContext context) throws IOException {
+		String org = context.getCurrentXmlTest().getParameter("org");
+    if(org.equalsIgnoreCase("GI")){
+			bookerBaseIp = "http://10.212.43.133:9097";
+		}
+    }
+
+==============
+IExecutionListener :
+
+IExecutionListener is used to to monitor when a TestNG run starts and ends.
+
+IExecutionListener provide following methods.
+
+void onExecutionStart() :  Invoked before the TestNG run starts.
+void onExecutionFinish() : Invoked once all the suites have been run
+
+so in our framework we have override onExecutionFinish method to cancel all transactions:
+
+eg:)
+@Override
+    public void onExecutionFinish() {   
+     CancelBookingHelper.cancelBookings(BookingRecords.getBookingIds());
+    }
+    =======================
+    
+    
