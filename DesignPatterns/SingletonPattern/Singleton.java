@@ -10,7 +10,7 @@ public class Singleton {
         this.id=id;
     }
 
-    public static Singleton getInstance(int id) // we dont fo synchonize here as it will make every call to this method synchronized.
+    public static Singleton getInstance(int id) // we don't declare synchonize here as it will make every call to this method synchronized.
     {
         if(instance == null){
         synchronized (Singleton.class) { // this will synchonize only this block which is creating instance.
