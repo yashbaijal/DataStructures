@@ -9,7 +9,7 @@ public void classInit(ITestContext context) throws IOException {
 		}
     }
 
-==============
+==================================
 IExecutionListener :
 
 IExecutionListener is used to to monitor when a TestNG run starts and ends.
@@ -26,6 +26,27 @@ eg:)
     public void onExecutionFinish() {   
      CancelBookingHelper.cancelBookings(BookingRecords.getBookingIds());
     }
-    =======================
+ ==================================
     
     
+Sample TestNg.xml:
+<suite name="Hotels Booker API Suite" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="com.mmt.booker.api.tests.tearDown.TearDownActions" />
+	</listeners>
+	<test name="Hotels MMT Booker Sanity Automation test"  parallel="classes" thread-count="5">
+		<parameter name="org" value="MMT"  />
+		<groups>
+			<run>
+				<exclude name = "giSpecificTests"></exclude>
+			</run>
+		</groups>
+		<classes>
+			<class name="com.mmt.booker.api.tests.createBooking.CreateBookingTest"/>
+			<methods>
+			<include  name="createBookingTest">
+			</methods>
+		</classes>
+	</test>
+</suite>
+=========================================
