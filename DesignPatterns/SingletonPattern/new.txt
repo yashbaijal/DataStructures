@@ -1,1 +1,6 @@
-
+Singleton Pattern is:
+static in nature.
+thread safe.
+Private constructor.
+Private instance of class.
+No argument to constructor.
