@@ -1,0 +1,88 @@
+
+XPath Selenium --->
+
+1. Contains:
+//tagname[contains(@tagnme,connstantValue)]
+eg:) //tagname[contains(@attribute,”signin”)]
+
+2. Logical Operators OR , AND :
+We can use logical operators such as OR & AND on the attributes condition. 
+In the case of OR, any one of the conditions should be true or both, whereas, in the case of AND, both the conditions should be true.
+
+//tagname[@attribute1=value1 OR @attribute2=value1]
+//tagname[@attribute1=value1 AND @attribute2=value1]
+
+eg:) //input[@name="email" or contains(@placeholder,’abc’)]
+eg:) //input[@name="email" and contains(@placeholder,'Email')]
+
+
+3. Text():
+The text() method is used in XPath whenever we have a text defined in an HTML tag, and we wish to identify that element via text. 
+This comes in handy when the other attribute values change dynamically with no substantial attribute value used via Starts-with or Contains.
+
+//tagname[@text()='Text of webelement']
+
+eg:) //span[text()='Sign up with Google']
+
+4.Chained XPath:
+
+ //tagname1[@attribute1=value1]//tagname2[@attribute2=value2]
+
+5. Xpath using Axes Methods:
+ 
+ 1. Following:
+ on using Following, you can have all the elements that follow the current node, and you can simply use Index or another chained XPath to locate your actual web element.
+
+//tagname[@attribute='value']//following::tagname
+
+eg:)//div[contains(@class,'password-group')]//following::div//input[@type='phone']
+
+
+2. following-sibling:
+siblings are those nodes that share the same parent or are at the same level. Hence, Following-Sibling will return you the node at the same level and after the current node.
+
+//tagname[@attribute='value']//following-sibling::tagname
+
+eg:) //option[@value='Manager']//following-sibling::option[@value='Director/VP']
+ 
+
+ 3.Preceding:
+
+ this method helps locate all the elements before the current node, as in the preceding element from the current node with XPath in Selenium.
+
+ //tagname[@attribute='value']//preceding::tagname
+
+ eg:) //div[@class='input-group-append']//preceding::input[@type='password']
+
+ 4. Preceding-sibling:
+ here, in contrast to Following-Sibling, you get all the nodes that are siblings or at the same level but are before your current node.
+
+ //tagname[@attribute='value']//preceding-sibling::tagname
+
+ 5. Child:
+
+ this approach is used to locate all the child elements of a particular node. For example, a basic use case of this approach could be to circulate all the data in a table
+
+ //tagname[@attribute='value']//child::tagname
+
+ 6. Parent:
+
+ This method is used to select the parent node of the current node.
+
+ //tagname[@attribute=’value’]/parent::tagname
+
+
+ 7.Descendants:
+
+ This method is used for selecting the descendants of the current node. Here, Descendants refer to the child nodes, grandchild nodes, etc.
+
+ //tagname[@attribute='value']//descendant::tagname
+
+  eg:)//div[contains(@class,'password-group')]//descendant::span
+
+
+ 8. Ancestors:
+   This method is used for selecting the ancestors of the current node. Here, Ancestors refer to the parent nodes, grandparent nodes, etc.
+   //tagname[@attribute='value']//ancestor::tagname
+
+   eg:)//div[contains(@class,'password-group')]/ancestor::div//input[@type='email']
