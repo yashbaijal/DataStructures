@@ -54,4 +54,10 @@ where id in ( select id
                    from cars) x
               where x.rn > 1);
               
-=======================================================              
+=======================================================   
+
+To find users who haven't logged in for more than 24 hours
+SELECT user_id
+FROM user_logins
+WHERE login_timestamp < NOW() - INTERVAL 24 HOUR;
+
