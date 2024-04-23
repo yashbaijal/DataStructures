@@ -14,7 +14,8 @@ class Codechef
         
         for(int i=0;i<arr.length;i++)
         {
-            temp[(i+k)%arr.length]=arr[i];
+            temp[(i+k)%arr.length]=arr[i]; // right rotation
+	    temp[i]=arr[(i+d)%n];          // left rotation
         }
         
         return temp;
