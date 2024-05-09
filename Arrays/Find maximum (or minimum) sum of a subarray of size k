@@ -29,6 +29,28 @@ public class test {
         maxSum(arr,4);
     }
 ===========================================
-Efficient Approach:
+Efficient Approach: 0(n)
 
-An Efficient Solution is based on the fact that sum of a subarray (or window) of size k can be obtained in O(1) time using the sum of the previous subarray (or window) of size k. Except for the first subarray of size k, for other subarrays, we compute the sum by removing the first element of the last window and adding the last element of the current window.
+An Efficient Solution is based on the fact that sum of a subarray (or window) of size k can be obtained in O(1) time using the sum of the previous subarray (or window) of size k. 
+Except for the first subarray of size k, for other subarrays, we compute the sum by removing the first element of the last window and adding the last element of the current window.
+
+public class test {
+
+    public static void maxSum(int [] arr, int d)
+    {
+        int res=0;
+        for(int i=0;i<d;i++)
+        {
+            res+=arr[i];
+        }
+
+        int currSum=res;
+        for(int i=d;i<arr.length;i++)
+        {
+            currSum+=arr[i]-arr[i-d];
+            res=Math.max(currSum,res);
+        }
+        System.out.println("Max sum is : "+res);
+    }
+
+
