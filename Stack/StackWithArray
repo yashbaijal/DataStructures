@@ -1,0 +1,81 @@
+package codeHelp;
+
+public class StackWithArray {
+
+    int [] arr;
+    int top;
+    int size;
+
+    StackWithArray(int size)
+    {
+        this.size=size;
+        arr=new int[size];
+        top=-1;
+    }
+
+    public boolean push(int d)
+    {
+        if(top>=(size-1))
+        {
+            System.out.println("stack overflow");
+            return  false;
+        }
+        else
+        {
+            arr[++top]=d;
+            return true;
+        }
+    }
+
+    public int pop()
+    {
+        if(top<0)
+        {
+            System.out.println("stack underflow");
+            return 0;
+        }
+        else {
+            int d=arr[top--];
+            return d;
+        }
+    }
+
+    public int peek()
+    {
+        if(top<0)
+        {
+            System.out.println("stack underflow");
+            return 0;
+        }
+        else
+        {
+            int d=arr[top];
+            return d;
+        }
+    }
+
+    boolean isEmpty()
+    {
+        if(top==-1)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public static void main(String[] args) {
+
+        StackWithArray stack=new StackWithArray(4);
+        stack.push(22);
+        stack.push(33);
+        stack.push(44);
+        stack.push(55);
+
+        System.out.println("top Element is :"+stack.peek());
+        System.out.println("element removed is :"+stack.pop());
+        System.out.println("top Element is :"+stack.peek());
+        stack.push(55);
+        stack.push(66);
+    }
+}
