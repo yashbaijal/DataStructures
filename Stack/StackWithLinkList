@@ -1,0 +1,65 @@
+package codeHelp;
+
+public class StackWithLinkList {
+
+    private class Node
+    {
+        int data;
+        Node next;
+    }
+
+    Node top;
+
+    StackWithLinkList()
+    {
+        this.top=null;
+    }
+
+    public void push(int d)
+    {
+        Node temp=new Node();
+
+        temp.data=d;
+        temp.next=top;
+        top=temp;
+    }
+
+    public int peek()
+    {
+        if(top!=null)
+        {
+            int ans=top.data;
+            return ans;
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public int pop()
+    {
+        if(top!=null)
+        {
+            int ans=top.data;
+            top=top.next;
+            return ans;
+
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        StackWithLinkList sl=new StackWithLinkList();
+        sl.push(10);
+        sl.push(20);
+        sl.push(30);
+        sl.push(40);
+
+        System.out.println("top element of stack is :"+sl.peek());
+        System.out.println("element popped from stack is"+ sl.pop());
+        System.out.println("top element of stack is :"+sl.peek());
+    }
+}
