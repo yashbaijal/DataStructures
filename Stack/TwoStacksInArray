@@ -1,0 +1,75 @@
+package codeHelp;
+
+public class TwoStacksInArray {
+
+    int [] arr;
+    int top1;
+    int top2;
+    int size;
+    TwoStacksInArray(int s)
+    {
+        this.size=s;
+        top1=-1;
+        top2=s;
+        arr=new int[s];
+    }
+
+    public  void push1(int d)
+    {
+        if(top2-top1>1)
+        {
+          top1++;
+          arr[top1]=d;
+        }
+    }
+
+    public  void push2(int d)
+    {
+        if(top2-top1>1)
+        {
+            top2--;
+            arr[top2]=d;
+        }
+    }
+
+    public int pop1()
+    {
+        if(top1>=0)
+        {
+            int num=arr[top1];
+            top1--;
+            return num;
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public int pop2()
+    {
+        if(top2<size)
+        {
+            int num=arr[top2];
+            top2++;
+            return num;
+        }
+        else {
+            return -1;
+        }
+    }
+    public static void main(String[] args) {
+
+        TwoStacksInArray stacks=new TwoStacksInArray(6);
+        stacks.push1(1);
+        stacks.push1(2);
+        stacks.push1(3);
+        stacks.push2(4);
+        stacks.push2(5);
+        stacks.push2(6);
+
+        System.out.println("element popped from stack 1 is :"+stacks.pop1());
+        stacks.push2(7);
+        System.out.println("element popped from stack 2 is :"+stacks.pop2());
+    }
+
+}
