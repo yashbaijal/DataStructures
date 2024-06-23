@@ -37,9 +37,6 @@ class Codechef
 		    digits.add(i);
 		}
 		addOne(digits);
-		for(Integer i:digits)
-		{
-		    System.out.print(" "+i);
-		}
+		System.out.println("after add : "+digits);
 	}
 }
