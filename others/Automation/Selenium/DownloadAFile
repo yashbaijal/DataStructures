@@ -1,0 +1,22 @@
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+
+        HashMap<String,Object> chPrefs=new HashMap<>();
+        chPrefs.put("profile.default_content_settings.popups",0); //diabling any download popups for confirmation.
+        String downloadFilePath= System.getProperty("user.dir");
+        chPrefs.put("download.default_directory",downloadFilePath);// setting up path in project to download file.
+        options.setExperimentalOption("prefs",chPrefs);
+
+        ChromeDriver driver =new ChromeDriver(options);
+        driver.manage().window().maximize();
+        driver.get("url");
+        driver.findElement(By.xpath("pathOfDOwnlaodButton")).click(); // if download button
+        driver.findElement(By.linkText("pathOfLinkTextWIthDownloadOption")).click(); // if linkText
+
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+        File file=new File(downloadFilePath+"\\FolderName\\fileName.format");
+        if(file.exists())
+        {
+            System.out.println("fileDownlaoded");
+        }
