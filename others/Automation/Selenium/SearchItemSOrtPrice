@@ -1,0 +1,94 @@
+package interview;
+
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import java.io.*;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+public class Assignment
+{
+
+   public static String getStringWithoutSpecialCharacters(String s)
+   {
+       String [] arr=s.split(",");
+       String input="";
+       for(String s1:arr)
+       {
+           input=input+s1;
+       }
+       return input;
+   }
+   public static void main(String[] args) throws InterruptedException {
+       LinkedHashMap<String, String> map = new LinkedHashMap<>();
+       ChromeOptions options=new ChromeOptions();
+       options.addArguments("--remote-allow-origins=*");
+       WebDriverManager.chromedriver().setup();
+       WebDriver driver = new ChromeDriver(options);
+       driver.get("https://www.amazon.in/");
+       driver.manage().window().maximize();
+       driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+       driver.findElement(By.id("twotabsearchtextbox")).sendKeys("lg soundbar");
+       driver.findElement(By.xpath("//input[@type='submit']")).click();
+       driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+       driver.findElement(By.xpath("//li[@aria-label='LG']//descendant::i")).click();
+       driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+       String productTab="(//div[contains(@class,'s-list-col-right')]/div/div)";
+       List<WebElement> starRatingList=driver.findElements(By.xpath(productTab));
+       System.out.println("Number of search elements received : "+starRatingList.size());
+       for (int i = 0; i<starRatingList.size(); i++) {
+           String pricetext=null;
+           int index=i+1;
+           try
+           {
+
+               pricetext=starRatingList.get(i).findElement(By.xpath(productTab+"["+index+"]"+"/div[@class='sg-row']/descendant::span[@class='a-price-whole']")).getText();
+
+           }
+           catch (Exception e)
+           {
+               pricetext="noRate";
+           }
+           String productName=starRatingList.get(i).findElement(By.xpath(productTab+"["+index+"]"+"/div[contains(@class,'s-title-instructions-style')]")).getText();
+           if(pricetext.equalsIgnoreCase("noRate"))
+           {
+               map.put(productName,"0");
+           }
+           else
+           {
+               map.put(productName,pricetext);
+           }
+       }
+       ArrayList<Map.Entry<String,String>> maplist= new ArrayList<>();
+       for(Map.Entry<String,String> e:map.entrySet())
+       {
+           maplist.add(e);
+       }
+
+       Comparator<Map.Entry<String,String>> mycomp= new Comparator<Map.Entry<String,String>>(){
+
+           public int compare(Map.Entry<String,String> e1, Map.Entry<String,String> e2)
+           {
+               Integer i1=Integer.parseInt(getStringWithoutSpecialCharacters(e1.getValue()));
+               Integer i2=Integer.parseInt(getStringWithoutSpecialCharacters(e2.getValue()));
+
+               return i2.compareTo(i1);
+           }
+       };
+       Collections.sort(maplist,mycomp);
+       LinkedHashMap<String,String> lmap=new LinkedHashMap<>();
+       for(Map.Entry<String,String> l:maplist)
+       {
+           lmap.put(l.getKey(),l.getValue());
+       }
+       lmap.keySet().forEach(k->System.out.println(lmap.get(k)+" : "+k));
+       driver.quit();
+   }
+}
+
+
