@@ -20,3 +20,34 @@
         {
             System.out.println("fileDownlaoded");
         }
+=====================================================
+for Firefox browser :
+        // Create a new Firefox profile
+        FirefoxProfile profile = new FirefoxProfile();
+
+        // Set preferences for file download
+        // 1. Set the download directory
+        String downloadDir = "/path/to/download";
+        profile.setPreference("browser.download.dir", downloadDir);
+        profile.setPreference("browser.download.folderList", 2);
+        //here 2 means specified location. 1 means default Download folder , 0 means Desktop.
+
+        // 2. Disable the download dialog
+        profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/octet-stream,application/pdf");
+
+        // 3. Disable the default browser's behavior to show the download manager window
+        profile.setPreference("browser.download.manager.showWhenStarting", false);
+
+        // 4. Disable browser from automatically opening the downloaded file
+        profile.setPreference("browser.download.manager.alertOnEXEOpen", false); // Disables alerts for executable files.
+        profile.setPreference("browser.download.manager.focusWhenStarting", false);
+        profile.setPreference("browser.download.manager.useWindow", false);
+        profile.setPreference("browser.download.manager.showAlertOnComplete", false);//Disables alerts when the download completes.
+        profile.setPreference("browser.download.manager.closeWhenDone", true);
+
+        // Set up the FirefoxOptions with the profile
+        FirefoxOptions options = new FirefoxOptions();
+        options.setProfile(profile);
+
+        // Initialize the WebDriver
+        WebDriver driver = new FirefoxDriver(options);
