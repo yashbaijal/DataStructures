@@ -28,7 +28,13 @@ public class Assignment
        LinkedHashMap<String, String> map = new LinkedHashMap<>();
        ChromeOptions options=new ChromeOptions();
        options.addArguments("--remote-allow-origins=*");
-       WebDriverManager.chromedriver().setup();
+
+/* This specific argument is used to configure the Chrome browser to allow remote origins.
+The * wildcard means it allows all origins.
+This can be important when testing web applications that need to interact with resources from different domains, 
+such as accessing APIs or loading images from a CDN (Content Delivery Network).*/
+       
+      WebDriverManager.chromedriver().setup();
        WebDriver driver = new ChromeDriver(options);
        driver.get("https://www.amazon.in/");
        driver.manage().window().maximize();
