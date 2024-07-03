@@ -1,0 +1,57 @@
+final class Student
+{
+    private final String name;
+    private final int regNo;
+    private final Map<String,String> metaData;
+
+    public Student(String name, int regNo , Map<String,String> metaData)
+    {
+        this.name=name;
+        this.regNo=regNo;
+
+        Map<String,String> tempMap=new HashMap<>();
+
+        for(Map.Entry<String,String> entry: metaData.entrySet())
+        {
+            tempMap.put(entry.getKey(), entry.getValue());
+        }
+
+        this.metaData=tempMap;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public int getRegNo(){ return this.regNo ;}
+
+    public Map<String,String> getMetaData()
+    {
+        Map<String,String> tempMap=new HashMap<>();
+
+        for(Map.Entry<String,String> entry: this.metaData.entrySet())
+        {
+            tempMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return tempMap;
+    }
+
+}
+
+public class Demo
+{
+
+    public static void main(String[] args) {
+        Map<String,String> metaData=new HashMap<>();
+        metaData.put("1","first");
+        metaData.put("2","second");
+
+        Student s= new Student("TestUser",9427,metaData);
+        System.out.println("original data : "+s.getMetaData());
+        
+        metaData.put("3","third");
+        System.out.println("updated data : "+s.getMetaData());
+    }
+}
