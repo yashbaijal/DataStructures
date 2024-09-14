@@ -1,0 +1,16 @@
+How to setup AutoIt to handle windows based popups :
+1. Download autoIt installer from official website and install.
+2. Now we need to build script in AutoIt to allow it to perform an action like file upload.
+3. Navigate to location where AutoIt is installed in local system .
+4.Now goto SciTE folder and open SciTE file( autoIt editor).
+5. Also open Au3_x64 file also .
+Au3_x64 is used to record objects of windows components.
+6.write script steps in SciTE editor and save it.
+7. Now locate script file and compile it using option ie version of autoIt installed on system by right click and select compile.
+8.Post compilation .au3 file converted to .exe file .
+9. we need to call this exe file  from our selenium code to perform windows based action.
+
+what to be done in script of AutoIt
+1. shift focus on opened dialog box
+2. find elements to be interacted (like open , close button,text box)
+3. elements path can be fetched from Au3_x64 which keeps track of window component
