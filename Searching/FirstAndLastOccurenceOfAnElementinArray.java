@@ -7,70 +7,64 @@ import java.io.*;
 /* Name of the class has to be "Main" only if the class is public. */
 class Codechef
 {
-    public static int firstOcc(int [] arr,int size,int key)
+    public static int firstOcc(int [] arr, int size, int key)
     {
         int start=0;
         int end=size-1;
-        int ans=-1;
-        int mid=(start+end)/2;
-        
+        int first=-1;
+
         while(start<=end)
         {
+            int mid=start+(end-start)/2;
+
             if(arr[mid]==key)
             {
-                ans=mid;
-                end=mid-1;
+                first=mid;
+                end=mid-1; // to check if any other lower index is available
             }
-            
-            if(key>arr[mid])
+
+            if(arr[mid]<key)
             {
                 start=mid+1;
             }
-            else if(key < arr[mid]){
+            else if(arr[mid]>key) {
                 end=mid-1;
             }
-            
-           // mid=(start+end)/2;
-           mid=start+(end-start)/2;
         }
-        return ans;
+        return first;
     }
-    
-    public static int lastOcc(int [] arr,int size,int key)
+
+    public  static int lastOcc(int [] arr, int size, int key)
     {
-        int start=0;
-        int end=size-1;
-        int ans=-1;
-        int mid=(start+end)/2;
-        
+        int start=0,end=size-1;
+        int last=-1;
+
         while(start<=end)
         {
+            int mid=start+(end-start)/2;
+
             if(arr[mid]==key)
             {
-                ans=mid;
+                last=mid;
                 start=mid+1;
             }
-            
-            if(key>arr[mid])
+
+            if(arr[mid]<key)
             {
-                start=mid+1;
+                start=start+1;
             }
-            else if(key < arr[mid]){
+            else if(arr[mid]>key)
+            {
                 end=mid-1;
             }
-            
-           // mid=(start+end)/2;
-           mid=start+(end-start)/2;
         }
-        return ans;
+        return last;
     }
-	public static void main (String[] args) throws java.lang.Exception
-	{
-		int [] arr={1,2,3,3,3,3,3,3,5};
-		int first=firstOcc(arr,arr.length,3);
-		int last=lastOcc(arr,arr.length,3);
-		
-		System.out.println(first+"----------"+last);
-	    
-	}
+
+    public static void main(String[] args) {
+        int [] arr={1,2,3,3,3,3,3,3,5};
+        int first= firstOcc(arr,arr.length,3);
+        int last= lastOcc(arr,arr.length,3);
+        System.out.println(first+" ===== "+last);
+    }
 }
