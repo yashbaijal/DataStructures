@@ -7,35 +7,31 @@ import java.io.*;
 // Length of the longest substring without repeating characters TC=O(n^2)
 // here question is solved using sliding window technique
 /* Name of the class has to be "Main" only if the class is public. */
-class Codechef
+class Codechef       ==> O(n) Time and O(1) Space
 {
-    public static int longestUniqueSubString(String str)
+    public static void longsetSubstring(String s)
     {
-        int res=0;
-        
+        int left=0,right=0;
+        int maxlen=0;
         boolean [] visited=new boolean[256];
-        
-        for(int i=0;i<str.length();i++)
+
+        while(right<s.length())
         {
-            for(int j=i;j<str.length();j++)
+            while(visited[s.charAt(right)])
             {
-                if(visited[str.charAt(j)]==true)
-                {
-                    break;
-                }
-                else{
-                    res=Math.max(res,j-i+1);
-                    visited[str.charAt(j)]=true;
-                }
+                visited[s.charAt(right)]=false;
+                left++;
             }
-            visited[str.charAt(i)]=false;
+            visited[s.charAt(right)]=true;
+            maxlen=Math.max(maxlen,(right-left+1));
+            right++;
         }
-        return res;
+        System.out.println("max length is : "+maxlen);
     }
 	public static void main (String[] args) throws java.lang.Exception
 	{
-		String str = "geeksforgeeks";
-		System.out.println(longestUniqueSubString(str));
+		String s= "geeksforgeeks";
+		longsetSubstring(s);
 	}
 }
 ================================================================
