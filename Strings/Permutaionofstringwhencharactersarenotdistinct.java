@@ -45,3 +45,25 @@ class Codechef
 		getPermutauions(1,str.length(),fmap,"");
 	}
 }
+=====================================================================================
+public static  void printpermute(String s,String ans)
+    {
+         boolean [] visited= new boolean[256];
+        if(s.length()==0)
+        {
+            System.out.println(ans);
+            return;
+        }
+
+        for(int i=0;i<s.length();i++)
+        {
+            char ch=s.charAt(i);
+            String res=s.substring(0,i)+s.substring(i+1);
+            if(visited[ch-'a']==false)
+            {
+                printpermute(res,ans+ch);
+                visited[ch-'a']=true;
+            }
+        }
+    }
+	
