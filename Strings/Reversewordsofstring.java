@@ -28,3 +28,51 @@ class Codechef
 	   System.out.println(reverse(str));
 	}
 }
+========================================================
+	public static void logic(String s)
+    {
+        String [] arr= s.split(" ");
+
+        for(int i=0;i<arr.length;i++)
+        {
+            arr[i]=arr[i].toUpperCase();
+            char ch=Character.toLowerCase(arr[i].charAt(0));
+            String res=arr[i].substring(1);
+            arr[i]=ch+res;
+        }
+        swapWords(arr);
+        for(int i=0;i<arr.length;i++)
+        {
+            arr[i]=reverse(arr[i]);
+        }
+        String out=String.join(" ",arr);
+        System.out.println("reversed words : "+out);
+    }
+
+    public static void swapWords(String [] arr)
+    {
+        int s=0 , e=arr.length-1;
+        while(s<=e)
+        {
+            String temp=arr[s];
+            arr[s]=arr[e];
+            arr[e]=temp;
+            s++;
+            e--;
+        }
+    }
+
+    public static String reverse(String s)
+    {
+        char [] arr=s.toCharArray();
+        int i=0,j=arr.length-1;
+        while(i<=j)
+        {
+            char ch=arr[i];
+            arr[i]=arr[j];
+            arr[j]=ch;
+            i++;
+            j--;
+        }
+        return String.valueOf(arr);
+    }
