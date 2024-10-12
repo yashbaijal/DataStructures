@@ -1,4 +1,40 @@
-/* package codechef; // don't place package name! */
+// Time= O(n^2) Space=O(1)
+public class Assignment {
+    static String longestPalSubstr(String s)
+    {
+        int n=s.length();
+        int start=0,maxlen=1;
+
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<=1;j++)
+            {
+                int low=i;
+                int hi=i+j;
+
+                while(low>=0 && hi<n &&s.charAt(low)==s.charAt(hi))
+                {
+                    int currlen=hi-low+1;
+                    if(currlen>maxlen)
+                    {
+                        maxlen=currlen;
+                        start=low;
+                    }
+                    low--;
+                    hi++;
+                }
+            }
+        }
+        return s.substring(start,start+maxlen);
+    }
+
+        public static void main(String args[]) {
+            String s = "forgeeksskeegfor";
+            System.out.println(longestPalSubstr(s));
+
+    }
+}
+=================================================================================
 
 import java.util.*;
 import java.lang.*;
