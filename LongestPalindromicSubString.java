@@ -1,4 +1,11 @@
 // Time= O(n^2) Space=O(1)
+//here we take j=1 to handle both even and odd length of palindrome string
+//as since we expanding after plaindrome is found , like
+// 1. if single character is palindrome then we expand low and hi
+//to check if it's adjacent characters are also same and so, thus serving odd length strings.
+//
+// 2. if to adjacent characters match like in example string s==s so we now expand to each of
+//characters adjacent characters,to check eqality and palindrome , thus serving  even length substrings.
 public class Assignment {
     static String longestPalSubstr(String s)
     {
