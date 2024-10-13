@@ -95,7 +95,8 @@ public class BalancePayment {
         // Adding Coins
         inventory.add(new Denomination(10, 10, false)); // ₹10 coin
         inventory.add(new Denomination(5, 10, false));  // ₹5 coin
-
+        inventory.add(new Denomination(2,10,false));
+        inventory.add(new Denomination(1,10,false));
         int balance = 275;
 
         Map<String, Map<Integer, Integer>> result = payBalance(balance, inventory);
