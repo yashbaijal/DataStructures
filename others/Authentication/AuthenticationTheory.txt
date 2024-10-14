@@ -1,0 +1,78 @@
+OAuth --->
+ OAuth is an open standard authorization protocol that provides applications ability to secure designated access.
+ For example, you can tell Facebook that it’s OK for ESPN.com to access your profile or post updates to your timeline without having to give ESPN your Facebook password. 
+ This minimizes risk in a major way: In the event ESPN suffers a breach, your Facebook password remains safe.
+ 
+Oauth uses authorization tokes to prove identity btween consumer and service provider w/o sharing passwords.
+Thus allowing user to approve one application interacting with another on user's behalf without sharing user password.
+
+there are three players in OAuth User , Consumer and service provider.
+
+for example ---> Consumer APP-A Service provider linkedin
+1. User want APP-A to post on his linkedin feed about certification he passed.
+2. APP-A will ask user permission to do so .
+3. upon user permission APP-A will go to service provider shares user's request and ask for authorization token.
+4. now user is redirected to service provider where he lohs into it  and approves request token which consumer gave to him .
+5. consumer now obtain access token and secret against request token and do stuff on user profile on service provider.
+6. user can log into  service provider and can revoke token given to consumer anytime.
+
+
+Oauth VS SSO
+Outh  is authorization protocol provides limited access to users resources without sharing credentials.
+SSO is an authentication process that allows user to sign into multiple applications using single credentials.Oauth can be used as part of SSO but not equivalent to it.
+
+Other AUthentication types:
+
+API-Key:
+Definition: An API key is a unique identifier used to authenticate requests associated with your account. It serves as a simple form of authentication that identifies the client making the request.
+
+How It Works:
+The client generates an API key through a service provider (e.g., a web service).
+The API key is usually sent as part of the request, often in the HTTP header, query string, or request body.
+The server validates the API key with each request, ensuring the requester has permission to access the resource.
+
+Use Cases:
+Public APIs: Many public APIs use API keys to track usage and control access.
+Simple Applications: Suitable for applications that do not require complex authentication mechanisms.
+Pros:
+Simplicity: Easy to implement and use.
+No User Interaction: The client doesn't need to log in; it just uses the key.
+Cons:
+Security: If an API key is exposed, anyone can use it, potentially leading to misuse.
+No User Context: API keys do not provide user-specific permissions or access control.
+
+
+2. Digest Authentication
+Definition: Digest authentication is a more secure authentication mechanism than Basic authentication. 
+It uses a challenge-response mechanism to verify the user's credentials without sending them in plaintext over the network.
+
+How It Works:
+Client Request: The client sends a request to a resource without credentials.
+Server Challenge: The server responds with a 401 Unauthorized status, including a WWW-Authenticate header, challenging the client to provide credentials.
+Client Response: The client responds with its username and a hashed version of the password (using a nonce value provided by the server, along with other request details).
+ The server then validates this hashed response.
+Validation: The server checks the hashed credentials against stored credentials.
+
+
+SAML : Security assertion Markup Language 
+an open standard that allows identity providers (IdP) to pass authorization credentials to service providers (SP).
+ uses one set of credentials to log into many different websites.
+ SAML transactions use Extensible Markup Language (XML) for standardized communications between the identity provider and service providers.
+ 
+A SAML Assertion is the XML document that the identity provider sends to the service provider that contains the user authorization. 
+There are three different types of SAML Assertions – authentication, attribute, and authorization decision.
+
+Authentication assertions prove identification of the user and provide the time the user logged in and what method of authentication they used (I.e., Kerberos, 2 factor, etc.)
+The attribution assertion passes the SAML attributes to the service provider – SAML attributes are specific pieces of data that provide information about the user.
+An authorization decision assertion says if the user is authorized to use the service or if the identify provider denied their request due to a password failure or lack of rights to the service.
+
+How Does SAML Work?
+SAML works by passing information about users, logins, and attributes between the identity provider and service providers. 
+Each user logs in once to Single Sign On with the identify provider, and then the identify provider can pass SAML attributes to the service provider when the user attempts to access those services. 
+The service provider requests the authorization and authentication from the identify provider. Since both of those systems speak the same language – SAML – the user only needs to log in once.
+
+SAML vs OAuth
+ SAML uses XML to pass messages, and OAuth uses JSON. 
+ OAuth provides a simpler mobile experience, while SAML is geared towards enterprise security. 
+ OAuth uses API calls extensively, which is why mobile applications, modern web applications, game consoles, and Internet of Things (IoT) devices find OAuth a better experience for the user. 
+ SAML, on the other hand, drops a session cookie in a browser that allows a user to access certain web pages – great for short-lived work days, but not so great when have to log into your thermostat every day
