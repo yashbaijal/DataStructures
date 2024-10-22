@@ -3,7 +3,7 @@ OAuth --->
  For example, you can tell Facebook that it’s OK for ESPN.com to access your profile or post updates to your timeline without having to give ESPN your Facebook password. 
  This minimizes risk in a major way: In the event ESPN suffers a breach, your Facebook password remains safe.
  
-Oauth uses authorization tokes to prove identity btween consumer and service provider w/o sharing passwords.
+Oauth uses authorization tokens to prove identity between consumer and service provider w/o sharing passwords.
 Thus allowing user to approve one application interacting with another on user's behalf without sharing user password.
 
 there are three players in OAuth User , Consumer and service provider.
