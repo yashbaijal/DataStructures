@@ -1,4 +1,7 @@
 Basic :
+// Preemptive authorization refers to the practice of sending authentication credentials (such as username and password) 
+//with the initial request to a protected resource, without waiting for the server to challenge the client for credentials.
+
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
