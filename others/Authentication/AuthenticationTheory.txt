@@ -12,7 +12,7 @@ for example ---> Consumer APP-A Service provider linkedin
 1. User want APP-A to post on his linkedin feed about certification he passed.
 2. APP-A will ask user permission to do so .
 3. upon user permission APP-A will go to service provider shares user's request and ask for authorization token.
-4. now user is redirected to service provider where he lohs into it  and approves request token which consumer gave to him .
+4. now user is redirected to service provider where he logs into it  and approves request token which consumer gave to him .
 5. consumer now obtain access token and secret against request token and do stuff on user profile on service provider.
 6. user can log into  service provider and can revoke token given to consumer anytime.
 
