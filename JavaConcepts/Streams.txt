@@ -1,0 +1,85 @@
+ava 8 introduced the Stream API, which allows developers to work with collections of data in a functional, declarative style. Streams provide a high-level abstraction for processing sequences of data (like collections) with operations like filtering, mapping, and reducing. They leverage functional programming concepts and make heavy use of lambda expressions.
+1. What is a Stream?
+
+A Stream is a sequence of elements that can be processed in a pipeline of operations. Streams don't store data; they operate on a source, such as a collection (like List, Set) or arrays. The source remains unchanged, and streams provide a clean, efficient way to process the elements without mutating the original collection.
+2. Key Characteristics of Streams:
+
+    No Storage: Streams do not store elements; they provide an interface for performing operations on data in a sequence.
+    Laziness: Intermediate operations (like filtering and mapping) are lazy—they are not executed until a terminal operation (like forEach or collect) is invoked.
+    Parallelizable: Streams can be run in parallel using .parallelStream(), which allows for multi-threaded operations on data, providing performance benefits on large datasets.
+    Non-mutating: Stream operations do not modify the source data structure; instead, they return new streams or results.
+
+3. Stream API Structure
+
+A Stream pipeline typically consists of:
+
+    Source: The collection or array to operate on (e.g., List, Set, Array).
+    Intermediate Operations: Operations that transform the stream (e.g., filter, map). These are lazy and return a new stream.
+    Terminal Operations: Operations that produce a result or side effect (e.g., collect, forEach). These trigger the execution of the stream pipeline.
+
+4. Common Stream Operations:
+Intermediate Operations:
+
+    filter(Predicate): Filters elements based on a condition.
+    map(Function): Transforms each element of the stream.
+    sorted(): Sorts the elements of the stream.
+    distinct(): Removes duplicates.
+
+Terminal Operations:
+
+    collect(Collector): Collects the stream elements into a collection or another type (like a List, Set).
+    forEach(Consumer): Performs an action on each element.
+    reduce(BinaryOperator): Reduces the elements of the stream to a single value.
+    count(): Counts the number of elements in the stream.
+
+
+import java.util.*;
+import java.util.stream.*;
+
+public class StreamExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        
+        // Stream pipeline to filter even numbers and collect them into a list
+        List<Integer> evenNumbers = numbers.stream()
+                                           .filter(n -> n % 2 == 0) // Intermediate operation
+                                           .collect(Collectors.toList()); // Terminal operation
+        
+        System.out.println("Even Numbers: " + evenNumbers);  // Output: Even Numbers: [2, 4, 6, 8, 10]
+    }
+}
+------------------------------------------------------------------------------------------------------------------
+filter() is used to exclude certain elements based on a condition.
+List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+List<String> filteredNames = names.stream()
+                                  .filter(name -> name.startsWith("A"))
+                                  .collect(Collectors.toList());
+
+System.out.println("Filtered Names: " + filteredNames);  // Output: [Alice]
+------------------------------------------------------------------------------------------------------------------
+map() is used to transform each element of the stream (e.g., converting a list of names to uppercase).
+List<String> uppercaseNames = names.stream()
+                                   .map(name -> name.toUpperCase())
+                                   .collect(Collectors.toList());
+
+System.out.println("Uppercase Names: " + uppercaseNames);  // Output: [ALICE, BOB, CHARLIE, DAVID]
+------------------------------------------------------------------------------------------------------------------
+sorted() is used to sort elements in natural or custom order.
+List<String> sortedNames = names.stream()
+                                .sorted()
+                                .collect(Collectors.toList());
+
+System.out.println("Sorted Names: " + sortedNames);  // Output: [Alice, Bob, Charlie, David]
+------------------------------------------------------------------------------------------------------------------
+reduce() is used to combine all elements in the stream into a single result.
+int sum = numbers.stream()
+                 .reduce(0, (a, b) -> a + b);  // Sum of all numbers
+System.out.println("Sum: " + sum);  // Output: Sum: 55
+------------------------------------------------------------------------------------------------------------------
+To process data concurrently, you can convert a stream to a parallel stream using .parallelStream():
+List<Integer> parallelResults = numbers.parallelStream()
+                                       .filter(n -> n % 2 == 0)
+                                       .collect(Collectors.toList());
+System.out.println("Parallel Results: " + parallelResults);
+------------------------------------------------------------------------------------------------------------------
+
