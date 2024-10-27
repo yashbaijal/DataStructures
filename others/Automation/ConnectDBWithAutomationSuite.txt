@@ -32,27 +32,25 @@ public class DatabaseUtil {
 
     // Method to fetch data from a query and return as Object[][]
     public Object[][] fetchDataForDataProvider(String query) throws SQLException {
-       List<Map<String, Object>> data = new ArrayList<>();
+       Map<Integer, Map<String, Object>> data = new HashMap<>();
         
         try (PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
-            // Get metadata to retrieve column names
             ResultSetMetaData metaData = resultSet.getMetaData();
             int columnCount = metaData.getColumnCount();
+            int rowNumber = 1; // Start row number from 1, or 0 if you prefer zero-based
 
-            // Iterate through each row
             while (resultSet.next()) {
                 Map<String, Object> row = new HashMap<>();
                 
-                // For each column in the row, add it to the map
                 for (int i = 1; i <= columnCount; i++) {
                     String columnName = metaData.getColumnName(i);
                     Object columnValue = resultSet.getObject(i);
                     row.put(columnName, columnValue);
                 }
-                
-                data.add(row); // Add each row map to the list
+
+                data.put(rowNumber++, row); // Associate the row number with the row data
             }
         }
         return data;
