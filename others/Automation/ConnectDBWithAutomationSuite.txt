@@ -1,0 +1,93 @@
+1. Add JDBC driver to our suite pom.xml
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.30</version>
+</dependency>
+
+2. Create A database utility class 
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DatabaseUtil {
+
+    private static final String URL = "jdbc:mysql://localhost:3306/automation_db";
+    private static final String USER = "yourUsername";
+    private static final String PASSWORD = "yourPassword";
+    private Connection connection;
+
+    // Connect to the database
+    public void connect() throws SQLException {
+        connection = DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+
+    // Disconnect from the database
+    public void disconnect() throws SQLException {
+        if (connection != null && !connection.isClosed()) {
+            connection.close();
+        }
+    }
+
+    // Method to fetch data from a query and return as Object[][]
+    public Object[][] fetchDataForDataProvider(String query) throws SQLException {
+        List<Object[]> data = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String username = resultSet.getString("username");
+                String email = resultSet.getString("email");
+                
+                // Add each row to the list
+                data.add(new Object[]{username, email});
+            }
+        }
+        // Convert the list to an Object[][]
+        return data.toArray(new Object[0][]);
+    }
+}
+--------------------------------------------------------------------------------
+
+3. Use the DB utility class in test methods to fetch data 
+
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import java.sql.SQLException;
+
+public class DatabaseTest {
+
+    private DatabaseUtil dbUtil;
+
+    @BeforeClass
+    public void setUp() throws SQLException {
+        dbUtil = new DatabaseUtil();
+        dbUtil.connect();  // Connect to the database
+    }
+
+    @DataProvider(name = "userDataProvider")
+    public Object[][] userDataProvider() throws SQLException {
+        // Example query to fetch active users
+        String query = "SELECT username, email FROM users WHERE status = 'active'";
+        return dbUtil.fetchDataForDataProvider(query);
+    }
+
+    @Test(dataProvider = "userDataProvider")
+    public void testFetchUserData(String username, String email) {
+        // Use data fetched from DB in assertions or further logic
+        System.out.println("User: " + username + ", Email: " + email);
+        
+        // Example assertion
+        assert email.contains("@") : "Invalid email format for user: " + username;
+    }
+
+    @AfterClass
+    public void tearDown() throws SQLException {
+        dbUtil.disconnect();  // Close the connection
+    }
+}
+----------------------------------------------------------------
