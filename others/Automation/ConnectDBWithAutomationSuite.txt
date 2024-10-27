@@ -79,14 +79,24 @@ public class DatabaseTest {
 
     @DataProvider(name = "userDataProvider")
     public Object[][] userDataProvider() throws SQLException {
-        // Example query to fetch active users
         String query = "SELECT username, email FROM users WHERE status = 'active'";
-        return dbUtil.fetchDataForDataProvider(query);
+        Map<Integer, Map<String, Object>> data = dbUtil.fetchDataAsRowMap(query);
+
+        // Convert Map<Integer, Map<String, Object>> to Object[][] for DataProvider
+        Object[][] dataArray = new Object[data.size()][1];
+        int index = 0;
+        for (Map.Entry<Integer, Map<String, Object>> entry : data.entrySet()) {
+            dataArray[index++][0] = entry.getValue(); // Each row is a Map
+        }
+        
+        return dataArray;
     }
 
     @Test(dataProvider = "userDataProvider")
-    public void testFetchUserData(String username, String email) {
-        // Use data fetched from DB in assertions or further logic
+    public void testFetchUserData(Map<String, Object> rowData) {
+        String username = (String) rowData.get("username");
+        String email = (String) rowData.get("email");
+        
         System.out.println("User: " + username + ", Email: " + email);
         
         // Example assertion
