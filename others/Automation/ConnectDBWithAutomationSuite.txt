@@ -32,20 +32,30 @@ public class DatabaseUtil {
 
     // Method to fetch data from a query and return as Object[][]
     public Object[][] fetchDataForDataProvider(String query) throws SQLException {
-        List<Object[]> data = new ArrayList<>();
+       List<Map<String, Object>> data = new ArrayList<>();
+        
         try (PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
+            // Get metadata to retrieve column names
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            // Iterate through each row
             while (resultSet.next()) {
-                String username = resultSet.getString("username");
-                String email = resultSet.getString("email");
+                Map<String, Object> row = new HashMap<>();
                 
-                // Add each row to the list
-                data.add(new Object[]{username, email});
+                // For each column in the row, add it to the map
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    Object columnValue = resultSet.getObject(i);
+                    row.put(columnName, columnValue);
+                }
+                
+                data.add(row); // Add each row map to the list
             }
         }
-        // Convert the list to an Object[][]
-        return data.toArray(new Object[0][]);
+        return data;
     }
 }
 --------------------------------------------------------------------------------
